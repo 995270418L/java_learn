@@ -14,7 +14,7 @@ class TickTick {
     * how much time in a day that all the hands are happy.
     *
        *
-      * input :The input contains many test cases. Each of them has a single line with
+      * input :The input contains many s cases. Each of them has a single line with
         *   a real number D between 0 and 120, inclusively. The input is terminated with a D of -1.
         *
         *
