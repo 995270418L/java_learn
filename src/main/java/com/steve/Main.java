@@ -164,13 +164,14 @@ public class Main extends MyObjectSupperClass implements AnInterface2 {
 //        }
 //        System.out.println(count);
 //        inputStream.close();
-        Scanner sc = new Scanner(System.in);
+//        Scanner sc = new Scanner(System.in);
 //
 //        Map<String,String> map = new ConcurrentHashMap<>();
 //        Map<String,String> hashMap = new HashMap();
 //        ReentrantLock lock = new ReentrantLock();
 //        Object o = new Object();
-        new Main().echo();
+//        new Main().echo();
+
     }
 
     public synchronized void echo(){

@@ -13,8 +13,9 @@ public class Solution4 {
         int[] a = {1,3}, b = {2};
         System.out.println(solve(a,b));
     }
+
     /**
-     * 求 m，n 数组的中位数
+     * 求 m，n 数组的中位数  i + j = m - i + n - j + 1   左边一定比右边长，所以当m + n 为奇数的时候，一定是 MaxLeft
      * @param nums1
      * @param nums2
      * @return
@@ -28,7 +29,7 @@ public class Solution4 {
         }
         int iMax = m, iMin=0, hLen = (m + n + 1) / 2;
         while(iMin <= iMax){
-            int i = ( iMax + iMin ) / 2;
+            int i = ( iMax + iMin ) / 2;  // 半折法查找
             int j = hLen - i;
             if(i < m && nums2[j - 1] > nums1[i]){  // i < m ==> j> 0
                 iMin = i + 1;
@@ -36,7 +37,6 @@ public class Solution4 {
                 iMax = i - 1;
             }else{
                 // i 满足条件
-
                 int maxLeft = 0;
                 if( i == 0 ){
                     maxLeft = nums2[j - 1];
@@ -45,7 +45,7 @@ public class Solution4 {
                 }else{
                     maxLeft = Math.max(nums1[i-1], nums2[j-1]);
                 }
-                // 如果 m + n 是奇数, 返回 maxLeft ??
+
                 if((m + n) % 2 == 1) return maxLeft;
 
                 int minRight = 0;
