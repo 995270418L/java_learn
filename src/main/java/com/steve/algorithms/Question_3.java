@@ -21,7 +21,7 @@ public class Question_3 {
     public static void main(String[] args) {
 
         Question_3 q = new Question_3();
-        System.out.println(q.lengthOfLongestSubstring3("pwwkew"));
+        System.out.println(q.lengthOfLongestSubstring3("dbasgdastge"));
 
     }
 
@@ -79,8 +79,23 @@ public class Question_3 {
      */
     public int lengthOfLongestSubstring3(String s) {
         int flag = 0;
-        s.indexOf(s.charAt(1), flag);
-        return 0;
+        int len = s.length();
+        int max = 0, result = 0;
+        for (int i=0; i< len; i++){
+            int tmp = s.indexOf(s.charAt(i), flag);
+            if(tmp < i){
+                if(max > result){
+                    result = max;
+                }
+                if(result > len - tmp - 1){
+                    return result;
+                }
+                max = i - tmp - 1;
+                flag = tmp + 1;
+            }
+            max ++ ;
+        }
+        return max;
     }
 
     /**
