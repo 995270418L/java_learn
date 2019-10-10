@@ -6,7 +6,8 @@ public class DynamicPlan {
         int[] p = {1,2, 5, 10,20};
 //        System.out.println(test1(p));
 //        System.out.println(test4(p, 4));
-        System.out.println(test5(p));
+//        System.out.println(test5(p));
+        System.out.println(rabbit2(6));
     }
 
 
@@ -107,4 +108,47 @@ public class DynamicPlan {
         dp[n] = max;
         return max;
     }
+
+    /**
+     * f(n) = f(n-1) + f(n-3) 自底向上的 DP
+     * @param n
+     * @return
+     */
+    public static int rabbit(int n) {
+        if (n == 0)
+            return 0;
+        int[] r = new int[n + 1];
+        r[0] = 1;
+        r[1] = 1;
+        r[2] = 1;
+        for (int i = 3; i <= n; i++) {
+            r[i] = r[i - 1] + r[i - 3];
+        }
+        return r[n];
+    }
+
+    /**
+     * 备忘录法
+     * @param n
+     * @return
+     */
+    public static int rabbit2(int n){
+        if(n ==0)
+            return 0;
+        int[] r = new int[n+1];
+        for(int i=0; i<= n; i++){
+           r[i] = -1;
+        }
+        return rabbit_recurse(n, r);
+    }
+
+    public static int rabbit_recurse(int n, int[] r){
+        if(r[n] >= 0)
+            return r[n];
+        if(n <= 2)
+            return 1;
+        r[n] = rabbit_recurse(n-1, r) + rabbit_recurse(n-3, r);
+        return r[n];
+    }
+
 }
