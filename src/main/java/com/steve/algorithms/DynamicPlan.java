@@ -2,13 +2,6 @@ package com.steve.algorithms;
 
 public class DynamicPlan {
 
-    public static void main(String[] args) {
-        int[] p = {1,2, 5, 10,20};
-//        System.out.println(test1(p));
-//        System.out.println(test4(p, 4));
-//        System.out.println(test5(p));
-        System.out.println(rabbit2(6));
-    }
 
 
     public static int test5(int[] p){
@@ -149,6 +142,43 @@ public class DynamicPlan {
             return 1;
         r[n] = rabbit_recurse(n-1, r) + rabbit_recurse(n-3, r);
         return r[n];
+    }
+
+    /**
+     * 矩阵连乘法 p = {5, 10, 3, 12, 5, 50, 6}, 普通递归
+     */
+    public static int matrix(int[] p, int start, int end){
+        if(start == end)
+            return 0;
+        int min = Integer.MAX_VALUE;
+        for(int k=start; k<end; k++){
+            min = Math.min(min, matrix(p, start, k) + matrix(p, k+1, end) + p[start-1] * p[k] * p[end]);
+        }
+        return min;
+    }
+
+    public static int memoMatrix(int[] p){
+        int[] memo = new int[p.length];
+        for(int i=0; i<p.length; i++){
+            memo[i] = Integer.MAX_VALUE;
+        }
+        return memoMatrixInvoke(p, memo, 1, p.length-1);
+    }
+
+    public static int memoMatrixInvoke(int[] p, int[] n, int i, int j){
+        if(n[i] > 0)
+            return n[i];
+        if(j == i)
+            return 0;
+        for(int k=i; k<j; k++){
+            n[k] = Math.min(n[k], memoMatrixInvoke(p, n, i, k) + memoMatrixInvoke(p, n, k+1, j) + p[i-1] * p[k] * p[j]);
+        }
+        return n[j];
+    }
+
+    public static void main(String[] args) {
+        int[] p = {30, 35, 15, 5, 10, 20, 25};
+        System.out.println(matrix(p, 1, p.length-1));
     }
 
 }
