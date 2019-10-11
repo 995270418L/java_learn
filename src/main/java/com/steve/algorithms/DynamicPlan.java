@@ -157,28 +157,58 @@ public class DynamicPlan {
         return min;
     }
 
+    /**
+     * 备忘录式自顶而下 dp
+     * @param p
+     * @return
+     */
     public static int memoMatrix(int[] p){
-        int[] memo = new int[p.length];
-        for(int i=0; i<p.length; i++){
-            memo[i] = Integer.MAX_VALUE;
+        int[][] memo = new int[p.length][p.length];
+        for(int i=0; i< p.length ; i++){
+            for(int j = i; j< p.length; j++){
+                memo[i][j] = Integer.MAX_VALUE;
+            }
         }
         return memoMatrixInvoke(p, memo, 1, p.length-1);
     }
 
-    public static int memoMatrixInvoke(int[] p, int[] n, int i, int j){
-        if(n[i] > 0)
-            return n[i];
+    public static int memoMatrixInvoke(int[] p, int[][] n, int i, int j){
+        if(n[i][j] != Integer.MAX_VALUE)
+            return n[i][j];
         if(j == i)
-            return 0;
+            n[i][j] = 0;
         for(int k=i; k<j; k++){
-            n[k] = Math.min(n[k], memoMatrixInvoke(p, n, i, k) + memoMatrixInvoke(p, n, k+1, j) + p[i-1] * p[k] * p[j]);
+            n[i][j] = Math.min(n[i][j], memoMatrixInvoke(p, n, i, k) + memoMatrixInvoke(p, n, k+1, j) + p[i-1] * p[k] * p[j]);
         }
-        return n[j];
+        return n[i][j];
+    }
+
+    /**
+     * 自底向上的dp
+     * @param p
+     * @return
+     */
+    public static int memoDP(int[] p){
+        int len = p.length;
+        if(len < 1)
+            return 0;
+        int[][] memo = new int[len][len];
+        for(int n=2; n< len; n++){                  // n 为矩阵链长度
+            for(int i = 1; i< len - n + 1; i++){
+                int j = i + n - 1 ;                 // j 为矩阵链长度 - 1
+                int min = Integer.MAX_VALUE;
+                for(int k=i; k<j ; k++){
+                    min = Math.min(min, memo[i][k] + memo[k+1][j] + p[i-1] * p[k] * p[j]);
+                }
+                memo[i][j] = min;
+            }
+        }
+        return memo[1][len-1];
     }
 
     public static void main(String[] args) {
         int[] p = {30, 35, 15, 5, 10, 20, 25};
-        System.out.println(matrix(p, 1, p.length-1));
+        System.out.println(memoDP(p));
     }
 
 }
