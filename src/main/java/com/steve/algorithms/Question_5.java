@@ -18,8 +18,9 @@ public class Question_5 {
         Question_5 question = new Question_5();
 //        System.out.println(question.longestPalindrome("babad"));
 
-        int[] p = {0,1,5,8,9,10,17,17,20,24,30};
-        System.out.println(question.dpDemo2(p,4));
+//        int[] p = {0,1,5,8,9,10,17,17,20,24,30};
+        String p = "cbbd";
+        System.out.println(question.longestPalindrome2(p));
     }
 
     /**
@@ -56,13 +57,45 @@ public class Question_5 {
 
 
     /**
-     * 最长公共子串
+     * 最长回文子串, 最长公共子串递推式： d[i][j] = d[i-1][j-1] + 1 ; 当且仅当 d[i] == d[j] 的时候 else d[i][j] = 0
      * @param s
      * @return
      */
     public String longestPalindrome2(String s) {
-        //todo 明天的递归问题
-        return null;
+        if(s.equals("")){
+            return "";
+        }
+        String sR = new StringBuffer(s).reverse().toString();
+        int len = s.length();
+        int[][] d = new int[len][len];  // 保留的最长子串的长度
+        int maxLen = -1;
+        int maxEnd = -1;
+        for(int i=0; i< len; i++){
+            for(int j=0; j<len; j++){
+                if(s.charAt(i) == sR.charAt(j)){
+                    if(i == 0 || j == 0){
+                        d[i][j] = 1;
+                    }else{
+                        d[i][j] = d[i-1][j-1] + 1;
+                    }
+
+                    if( d[i][j] > maxLen ) {
+                        // 得到最长公共子串，再判断它是不是回文串
+                        int beforeR = len - j - 1;  // 得到最后一个字符的反转前的下坐标
+                        int rC = beforeR + d[i][j] -1; // 判断是否是回文，回文的话，加上长度应该是相等的。 下标的话再 -1
+                        if(rC == i) {
+                            maxLen = d[i][j];
+                            maxEnd = i;
+                        }
+                    }
+                }
+            }
+        }
+        if(maxEnd > -1){
+            return s.substring(maxEnd - maxLen + 1, maxEnd + 1);
+        }else{
+            return "";
+        }
     }
 
     /**

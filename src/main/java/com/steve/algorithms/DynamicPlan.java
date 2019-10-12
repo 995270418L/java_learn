@@ -206,9 +206,25 @@ public class DynamicPlan {
         return memo[1][len-1];
     }
 
+    /**
+     * 小朋友过桥问题 自底向上的动态规划
+     * @param p
+     * @return
+     */
+    public static int bridgeDP(int[] p){
+        int[] t = new int[p.length];
+        t[0] = p[0];
+        t[1] = p[1];
+        t[2] = p[1] + p[0] + p[2];
+        for(int i=3; i<p.length; i++){
+            t[i] = Math.min(t[i-1] +p[i] + p[0], t[i-2] + p[1] + p[i] + p[0] + p[1]);
+        }
+        return t[p.length-1];
+    }
+
     public static void main(String[] args) {
-        int[] p = {30, 35, 15, 5, 10, 20, 25};
-        System.out.println(memoDP(p));
+        int[] p = {1, 2, 5, 10};
+        System.out.println(bridgeDP(p));
     }
 
 }
