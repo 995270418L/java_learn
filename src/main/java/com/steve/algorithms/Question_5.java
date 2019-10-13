@@ -14,15 +14,6 @@ package com.steve.algorithms;
  */
 public class Question_5 {
 
-    public static void main(String[] args) {
-        Question_5 question = new Question_5();
-//        System.out.println(question.longestPalindrome("babad"));
-
-//        int[] p = {0,1,5,8,9,10,17,17,20,24,30};
-        String p = "cbbd";
-        System.out.println(question.longestPalindrome2(p));
-    }
-
     /**
      * 暴力破解, 枚举所有子串，对每个子串进行判断，判断是否为回文串
      * @param s
@@ -58,6 +49,7 @@ public class Question_5 {
 
     /**
      * 最长回文子串, 最长公共子串递推式： d[i][j] = d[i-1][j-1] + 1 ; 当且仅当 d[i] == d[j] 的时候 else d[i][j] = 0
+     *  时间复杂度 O（n^2）， 辅助空间复杂度 O(n^2)
      * @param s
      * @return
      */
@@ -67,7 +59,7 @@ public class Question_5 {
         }
         String sR = new StringBuffer(s).reverse().toString();
         int len = s.length();
-        int[][] d = new int[len][len];  // 保留的最长子串的长度
+        int[][] d = new int[len][len];  // 保留的最长公共子串的长度
         int maxLen = -1;
         int maxEnd = -1;
         for(int i=0; i< len; i++){
@@ -96,6 +88,94 @@ public class Question_5 {
         }else{
             return "";
         }
+    }
+
+    /**
+     * 优化目标， 时间复杂度 O(n^2), 空间复杂度 O（n）
+     * @param s
+     * @return
+     */
+    public String longestPalindrome3(String s) {
+        if(s.equals("")){
+            return "";
+        }
+        String sR = new StringBuffer(s).reverse().toString();
+        int len = s.length();
+        int[] d = new int[len];
+        int maxLen = -1;
+        int maxEnd = -1;
+        for(int i=0; i< len; i++){
+            for(int j=len-1; j>=0; j--){            // 从后往前遍历子问题的原因是依赖于第一列 ( i==0 || j==0) == 1 的状态
+                if(s.charAt(i) == sR.charAt(j)){
+                    if(i == 0 || j == 0){
+                        d[j] = 1;
+                    }else{
+                        d[j] = d[j-1] + 1;
+                    }
+
+                    if( d[j] > maxLen ) {
+                        // 得到最长公共子串，再判断它是不是回文串
+                        int beforeR = len - j - 1;  // 得到最后一个字符的反转前的下坐标
+                        int rC = beforeR + d[j] -1; // 判断是否是回文，回文的话，加上长度应该是相等的。 下标的话再 -1
+                        if(rC == i) {
+                            maxLen = d[j];
+                            maxEnd = i;
+                        }
+                    }
+                }else{
+                    d[j] = 0;  // 计算下下列的时候这个列的值应该为0
+                }
+            }
+        }
+        if(maxEnd > -1){
+            return s.substring(maxEnd - maxLen + 1, maxEnd + 1);
+        }else{
+            return "";
+        }
+    }
+
+    /**
+     * 循环中心算法 时间复杂度 O(n^2), 空间复杂度 O(n)
+     * @param s
+     * @return
+     */
+    public String longestPalindrome4(String s){
+        if(s == null || s.length() <= 1)
+            return "";
+        int start = 0, end = 0;
+        for(int i=0; i< s.length(); i++){
+            int len1 = expandCenterLength(s, i, i);          // 奇数从单个数开始遍历
+            int len2 = expandCenterLength(s, i, i+1);  // 偶数就从中间开始遍历
+            int len = Math.max(len1, len2);
+            if(len > end - start){
+                start = i - (len - 1) / 2;
+                end = i + len / 2;
+            }
+        }
+        return s.substring(start, end+1);
+    }
+
+    public int expandCenterLength(String s, int left, int right){
+        while(left >=0 && right < s.length() && s.charAt(left) ==s.charAt(right)){
+            left --;
+            right ++;
+        }
+        return right - left - 1;
+    }
+
+    /**
+     * manacher's algorithm. 时间复杂度 O(n), 空间复杂度 O(n)
+     * @param s
+     * @return
+     */
+    public String longestPalindrome5(String s){
+        return "";
+    }
+
+    public static void main(String[] args) {
+        Question_5 question = new Question_5();
+        String p = "aaaabaaa";
+        System.out.println(question.longestPalindrome4(p));
     }
 
     /**
