@@ -25,16 +25,18 @@ public class Question_16 {
             return 0;
         Arrays.sort(nums);
         int len = nums.length;
-        int minClose = target;
+        int minDiff = Integer.MAX_VALUE;
+        int res = 0;
         for(int k=0; k < nums.length; k++){
             int i=k+1, j=len -1;
-            if(nums[k] > Math.abs(minClose))
+            if(nums[k] > Math.abs(minDiff))
                 break;
             while(i < j){
                 int sum = nums[k] + nums[i] + nums[j];
-                int diff = Math.abs(sum - target);
-                if(diff < Math.abs(minClose)){
-                    minClose = sum;
+                int diff = Math.abs(Math.abs(sum) - target);
+                if(diff < Math.abs(minDiff)){
+                    res = sum;
+                    minDiff = diff;
                     i++;
                     j--;
                 }else{
@@ -43,13 +45,13 @@ public class Question_16 {
 
             }
         }
-        return minClose;
+        return res;
     }
 
     public static void main(String[] args) {
         Question_16 q = new Question_16();
-        int[] nums = {1, 1, 1, 1, 1, 1, 1, 0};
-        int target = 100;
+        int[] nums = {0, 2, 1, -3};
+        int target = 1;
         System.out.println(q.threeSumClosest(nums, target));
     }
 
