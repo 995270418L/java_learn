@@ -1,11 +1,8 @@
-package com.steve.algorithmbook.itoalgorithms;
+package com.steve.algorithms;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-
-/**
- * Page 204
- */
 public class DynamicPlan {
+
+
 
     public static int test5(int[] p){
         int[] dp = new int[p.length];
@@ -210,76 +207,24 @@ public class DynamicPlan {
     }
 
     /**
-     * 最长公共子序列 长度
+     * 小朋友过桥问题 自底向上的动态规划
+     * @param p
      * @return
      */
-    private static int publicSeries(String a, String b, int endA, int endB){
-        if(endA < 0 || endB < 0){
-            return 0;
+    public static int bridgeDP(int[] p){
+        int[] t = new int[p.length];
+        t[0] = p[0];
+        t[1] = p[1];
+        t[2] = p[1] + p[0] + p[2];
+        for(int i=3; i<p.length; i++){
+            t[i] = Math.min(t[i-1] +p[i] + p[0], t[i-2] + p[1] + p[i] + p[0] + p[1]);
         }
-        if(a.charAt(endA) == b.charAt(endB)){
-            return publicSeries(a, b, endA-1, endB -1) + 1;
-        }else{
-            return Math.max(publicSeries(a, b, endA - 1, endB), publicSeries(a, b, endA, endB - 1));
-        }
-    }
-
-    private static int publicSeriesMemo(String a, String b){
-        int m = a.length();
-        int n = b.length();
-        int[][] memo = new int[m][n];
-        for(int i=0; i<m ;i++){
-            for(int j=0; j<n; j++){
-                memo[i][j] = Integer.MIN_VALUE;
-            }
-        }
-        return publicSeriesMemoRE(a,b, m-1, n-1, memo);
-    }
-
-    private static int publicSeriesMemoRE(String a, String b, int endA, int endB, int[][] memo){
-        if(endA < 0 || endB < 0){
-            return 0;
-        }
-        if(memo[endA][endB] != Integer.MIN_VALUE){
-            return memo[endA][endB];
-        }
-        int max;
-        if(a.charAt(endA) == b.charAt(endB)){
-            max = publicSeriesMemoRE(a, b, endA-1, endB -1, memo) + 1;
-        }else{
-            max = Math.max(publicSeriesMemoRE(a, b, endA - 1, endB, memo), publicSeriesMemoRE(a, b, endA, endB - 1, memo));
-        }
-        memo[endA][endB] = max;
-        return memo[endA][endB];
-    }
-
-    /**
-     * 自底向上的动态规划
-     * @param a
-     * @param b
-     * @return
-     */
-    private static int publicSeriesDP(String a, String b){
-        int m = a.length();
-        int n = b.length();
-        int[][] memo = new int[m][n];
-        for(int i=1; i<m; i++){
-            for(int j=1; j<n; j++){
-                if(a.charAt(i) == b.charAt(j)){
-                    memo[i][j] = memo[i-1][j-1] + 1;
-                }else{
-                    memo[i][j] = Math.max(memo[i-1][j], memo[i][j-1]);
-                }
-            }
-        }
-        return memo[m-1][n-1];
+        return t[p.length-1];
     }
 
     public static void main(String[] args) {
-//        int[] p = {30, 35, 15, 5, 10, 20, 25};
-//        System.out.println(memoDP(p));
-        String a = "ABCD", b = "DBCABCG";
-        System.out.println(publicSeriesDP(a, b));
+        int[] p = {30, 35, 15, 5, 10, 20, 25};
+        System.out.println(memoDP(p));
     }
 
 }
