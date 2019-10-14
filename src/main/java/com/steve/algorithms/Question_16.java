@@ -31,18 +31,16 @@ public class Question_16 {
             int i=k+1, j=len -1;
             if(nums[k] > Math.abs(minDiff))
                 break;
+            if(k > 0 && nums[k] == nums[k-1])
+                continue;
             while(i < j){
                 int sum = nums[k] + nums[i] + nums[j];
-                int diff = Math.abs(Math.abs(sum) - target);
+                int diff = Math.abs(sum - target);
                 if(diff < Math.abs(minDiff)){
                     res = sum;
                     minDiff = diff;
-                    i++;
-                    j--;
-                }else{
-                    j--;
                 }
-
+                j --;
             }
         }
         return res;
