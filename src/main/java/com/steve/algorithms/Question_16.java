@@ -25,31 +25,51 @@ public class Question_16 {
             return 0;
         Arrays.sort(nums);
         int len = nums.length;
-        int minDiff = Integer.MAX_VALUE;
-        int res = 0;
+        int ans = nums[0] + nums[1] + nums[2];
         for(int k=0; k < nums.length; k++){
             int i=k+1, j=len -1;
-            if(nums[k] > Math.abs(minDiff))
+            if(nums[k] > Math.abs(ans))
                 break;
             if(k > 0 && nums[k] == nums[k-1])
                 continue;
             while(i < j){
+                // 判断每次循环的最小值问题，如果最小值要大于 target， 则表示后面所有的值都大于target，这时候只需要判断 结果的靠近程度了。
+                int min = nums[k] + nums[i] + nums[i+1];
+                if(target < min){
+                    if(Math.abs(ans - target) > Math.abs(min - target)){
+                        ans = min;
+                    }
+                    break;
+                }
+                // 判断每次循环的最大值问题，原理同上
+                int max = nums[k] + nums[j-1] + nums[j];
+                if(target > max){
+                    if(Math.abs(ans - target) > Math.abs(max - target)){
+                        ans = max;
+                    }
+                    break;
+                }
+
                 int sum = nums[k] + nums[i] + nums[j];
                 int diff = Math.abs(sum - target);
-                if(diff < Math.abs(minDiff)){
-                    res = sum;
-                    minDiff = diff;
+                if(diff < Math.abs(ans - target)){
+                    ans = sum;
                 }
-                j --;
+                if(sum < target) {
+                    while(i < j && nums[i] == nums[++i]);
+                } else if (sum > target)
+                    while(i < j && nums[j] == nums[--j]);
+                else
+                    return sum;
             }
         }
-        return res;
+        return ans;
     }
 
     public static void main(String[] args) {
         Question_16 q = new Question_16();
-        int[] nums = {0, 2, 1, -3};
-        int target = 1;
+        int[] nums = {0, 1, 2};
+        int target = 0;
         System.out.println(q.threeSumClosest(nums, target));
     }
 
