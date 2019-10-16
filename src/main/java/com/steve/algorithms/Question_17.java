@@ -52,9 +52,42 @@ public class Question_17 {
         return res;
     }
 
+    /**
+     * DFS 思路
+     * @param digits
+     * @return
+     */
+    public List<String> letterCombinationsDFS(String digits) {
+        List<String> res = new ArrayList<>();
+        if(digits.length() == 0){
+            return res;
+        }
+        backtrack(res, "", digits);
+        return res;
+    }
+
+    /**
+     * 一种DFS的遍历方法
+     * @param result
+     * @param combination
+     * @param nextDigits
+     */
+    public void backtrack(List<String> result, String combination, String nextDigits){
+        if(nextDigits.length() == 0){
+            result.add(combination);
+        }else{
+            String[] lettleArr = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+            String digit = nextDigits.substring(0,1);
+            String lettle =  lettleArr[digit.charAt(0) - '0'];
+            for(int i=0; i< lettle.length(); i++){
+                backtrack(result, combination + lettle.charAt(i), nextDigits.substring(1));
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Question_17 question = new Question_17();
-        System.out.println(question.letterCombinations("23"));
+        System.out.println(question.letterCombinationsDFS("23"));
     }
 
 }

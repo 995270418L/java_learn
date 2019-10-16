@@ -1,8 +1,6 @@
 package com.steve.algorithms;
 
-import lombok.Data;
 
-@Data
 public class ListNode {
 
     public static int val;
@@ -10,6 +8,8 @@ public class ListNode {
 
     public ListNode(int val) {
         this.val = val;
+        this.next = null;
     }
+
 
 }
