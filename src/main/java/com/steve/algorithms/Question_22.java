@@ -24,6 +24,10 @@ public class Question_22 {
         return null;
     }
 
+    public List<String> generateParent(){
+        return new ArrayList();
+    }
+
     public List<String> generateViolence(int n){
         List<String> res = new ArrayList<>();
         char[] current = new char[2*n];
