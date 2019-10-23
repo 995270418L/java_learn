@@ -29,7 +29,7 @@ package com.steve.algorithms;
  * 输出: "1211"
  *
  */
-public class Question_37 {
+public class Question_38 {
 
     public String countAndSay(int n) {
         String ret = "1";
@@ -38,23 +38,25 @@ public class Question_37 {
             StringBuilder tmp = new StringBuilder();
             int count = 1;
             char last = ret.charAt(0);
-            for(int j=0; j<ret.length(); j++){
-                if(j > 0 && last == ret.charAt(j)){
+            for(int j=1; j< ret.length(); j++){
+                if(last == ret.charAt(j)){
                     count ++;
                 }else{
                     tmp.append(count);
-                    tmp.append(ret.charAt(j));
+                    tmp.append(ret.charAt(j-1));
                     count = 1;
                     last = ret.charAt(j);
                 }
             }
+            tmp.append(count);
+            tmp.append(last);
             ret = tmp.toString();
         }
         return ret;
     }
 
     public static void main(String[] args) {
-        Question_37 question = new Question_37();
+        Question_38 question = new Question_38();
         System.out.println(question.countAndSay(5));
     }
 
