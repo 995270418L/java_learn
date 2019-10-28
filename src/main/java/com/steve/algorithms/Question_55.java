@@ -3,6 +3,7 @@ package com.steve.algorithms;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  *
@@ -27,31 +28,71 @@ import java.util.List;
  */
 public class Question_55 {
 
-    public List<Integer> spiralOrder(int[][] matrix) {
+    enum Index{
+        BAD, GOOD, UNKNOW;
+    }
+
+    /**
+     * 往最右的方向上想，就是贪心，每次走最大
+     * @param nums
+     * @return
+     */
+    public boolean canJump3(int[] nums){
+        int k=0;
+        for(int i=0; i<nums.length; i++){
+            if(i > k) return false;
+            k = Math.max(k, i + nums[i]);
+        }
+        return true;
+    }
+
+    /**
+     * 类似动态规划的思想来解决
+     * @param nums
+     * @return
+     */
+    public boolean canJump2(int[] nums){
+        Index[] memo = new Index[nums.length];
+        for(int i=0; i< nums.length; i++){
+            memo[i] = Index.UNKNOW;
+        }
+        memo[nums.length - 1] = Index.GOOD;
+        for(int i=nums.length -2; i>=0; i--){
+            int nextMaxJump = Math.min(i + nums[i], nums.length - 1);
+            for(int j=i+1; j<= nextMaxJump; j++){
+                if(memo[j] == Index.GOOD){
+                    memo[i] = Index.GOOD;
+                    break;
+                }
+            }
+        }
+        return memo[0] == Index.GOOD;
+    }
+
+    public boolean canJump(int[] nums) {
+        if(nums.length == 0){
+            return false;
+        }
         List<Integer> res = new ArrayList<>();
-        if(matrix.length == 0)
-            return res;
-        int u=0, d=matrix.length-1, l=0, r=matrix[0].length-1;
-        while (true){
-            // 向右
-            for(int i=l; i<=r; i++) res.add(matrix[u][i]);
-            if(++u > d) return res;
-            // 向下
-            for(int i=u; i<=d; i++) res.add(matrix[i][r]);
-            if( --r < l) return res;
-            // 向右
-            for(int i=r; i>=l; i--) res.add(matrix[d][i]);
-            if(--d < u) return res;
-            // 向上
-            for(int i=d; i>=u; i--) res.add(matrix[i][l]);
-            if(++l > r) return res;
+        backtracking(nums, nums[0], 0, new Stack(), res);
+        return !res.isEmpty();
+    }
+
+    public void backtracking(int[] nums, int end, int index, Stack<Integer> visited, List<Integer> res){
+        if(index == nums.length - 1 && nums[nums.length-1] == end){
+            res.add(1);
+            return;
+        }
+        for(int i=1; i<=end && (index+ i) < nums.length; i++){
+            visited.push(i);
+            backtracking(nums, nums[index + i], index + i, visited, res);
+            visited.pop();
         }
     }
 
-
     public static void main(String[] args) {
         Question_55 question = new Question_55();
-        System.out.println(question.spiralOrder(new int[][]{{1,2,3,5},{4,6,7,9}}));
+        System.out.println(question.canJump3(new int[]{3,2,1,0,4}));
     }
 
 }
