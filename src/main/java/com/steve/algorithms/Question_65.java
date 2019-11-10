@@ -22,13 +22,19 @@ package com.steve.algorithms;
 public class Question_65 {
 
     public int[] plusOne(int[] digits) {
-        
-        return null;
+        for(int i = digits.length - 1; i >= 0; i--){
+            digits[i] ++;
+            digits[i] = digits[i] % 10;
+            if(digits[i] != 0) return digits;
+        }
+        digits = new int[digits.length + 1];
+        digits[0] = 1;                          // 首位置为 1 即可
+        return digits;
     }
 
     public static void main(String[] args) {
         Question_65 question = new Question_65();
-        System.out.println(question.plusOne(new int[]{1,2,3,4}));
+        System.out.println(question.plusOne(new int[]{9,9,9,9}));
     }
 
 }
