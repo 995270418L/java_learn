@@ -24,26 +24,23 @@ public class Question_69 {
 
     public int mySqrt(int x) {
         if(x <= 0) return 0;
-        int end = (x + 1) / 2 + (x + 1) % 2;
-        int start = 1;
-        while (start <= end){
-             int mid = end - (end-start) / 2 + 1;
-             if(mid * mid > x && (mid - 1) *(mid - 1) < x){
-                 return mid - 1;
-             }else if(mid * mid > x){
-                 end = mid - 1;
-             }else if(mid * mid < x){
-                 start = mid + 1;
-             }else{
-                 return mid;
-             }
+        long end = x / 2 + 1;
+        long start = 1;
+        while (start < end){
+            long mid = ( end + start + 1 ) >>> 1; // 有余数就进1
+            if(mid * mid > x){
+                end = mid - 1;
+            }else{
+                start = mid;
+            }
         }
-        return 1;
+        return (int) start;
     }
 
     public static void main(String[] args) {
         Question_69 question = new Question_69();
-        System.out.println(question.mySqrt(9));
+        System.out.println(Integer.MAX_VALUE);
+        System.out.println(question.mySqrt(2147483647));
     }
 
 }
