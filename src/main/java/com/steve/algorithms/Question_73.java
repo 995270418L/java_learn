@@ -39,7 +39,7 @@ package com.steve.algorithms;
  *
  *
  */
-public class Question_72 {
+public class Question_73 {
 
 
     public void setZeroes(int[][] matrix) {
@@ -77,7 +77,7 @@ public class Question_72 {
 
 
     public static void main(String[] args) {
-        Question_72 question = new Question_72();
+        Question_73 question = new Question_73();
         int[][] a = new int[3][];
         question.setZeroes(a);
         System.out.println();
