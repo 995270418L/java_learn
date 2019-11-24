@@ -50,19 +50,21 @@ public class Question_80 {
      * @return
      */
     public int removeDuplicates(int[] nums) {
-        int j = 1;
-        Map<Integer, Integer> hash = new HashMap<>();
-        for(int i=0; i<nums.length; i++){
-            if(hash.get(nums[i]) != null){
-                if(hash.get(nums[i]) >= 2){
-
-                }else{
-                    hash.put(nums[i], hash.get(nums[i]) + 1);
-                }
+        if(nums.length <= 2) return nums.length;
+        int i=1, j= 2;
+        boolean status = nums[j] == nums[i-1];
+        while (j < nums.length){
+            if(status){
+                j++;
             }else{
-                hash.put(nums[i], 1);
+                i++;
+                swap(nums, i, j);
+                j++;
             }
+            if(j ==nums.length) break;
+            status = nums[j] == nums[i-1];
         }
+        return i+1;
     }
 
     public void swap(int[] nums, int start, int end){
@@ -73,7 +75,7 @@ public class Question_80 {
 
     public static void main(String[] args) {
         Question_80 question = new Question_80();
-        System.out.println(question.removeDuplicates(new int[]{0,0,1,1,1,1,2,3,3}));
+        System.out.println(question.removeDuplicates(new int[]{1,1,1,2,2,3}));
     }
 
 }
