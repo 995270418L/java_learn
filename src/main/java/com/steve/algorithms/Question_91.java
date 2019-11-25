@@ -25,15 +25,32 @@ package com.steve.algorithms;
  */
 public class Question_91 {
 
+    /**
+     * 条件过滤 两个变量使用
+     * @param s
+     * @return
+     */
     public int numDecodings(String s) {
-        return 0;
+        if(s == null || s.charAt(0) == '0') return 0;
+        int curr = 1, pre = 1;
+        for(int i=1; i< s.length(); i++){
+            int tmp = curr; // dp[i-1]
+            if(s.charAt(i) == '0'){
+                if(s.charAt(i-1) == '1' || s.charAt(i-1) == '2') curr = pre;
+                else return 0;
+            }else if(s.charAt(i-1) == '1' || (s.charAt(i-1) == '2' && s.charAt(i) >= '1' && s.charAt(i) <= '6')){
+                curr += pre;
+            }
+            // 更新值
+            pre = tmp; // pre = dp[i-1]
+        }
+        return curr;
     }
-
 
     public static void main(String[] args) {
         Question_91 question = new Question_91();
         int[] nums1 = {1,2,2};
-        String s = "steve";
+        String s = "226";
         System.out.println(question.numDecodings(s));
     }
 
