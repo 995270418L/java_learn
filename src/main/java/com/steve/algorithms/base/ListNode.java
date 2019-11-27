@@ -1,4 +1,4 @@
-package com.steve.algorithms;
+package com.steve.algorithms.base;
 
 
 public class ListNode {

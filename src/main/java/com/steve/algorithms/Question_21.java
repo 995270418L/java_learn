@@ -1,5 +1,7 @@
 package com.steve.algorithms;
 
+import com.steve.algorithms.base.ListNode;
+
 /**
  *简单
  *
