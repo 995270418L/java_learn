@@ -25,7 +25,36 @@ import com.steve.leetcode.ListNode;
 public class Question_109 {
 
     public TreeNode sortedListToBST(ListNode head) {
-        return null;
+        if(head == null) return null;
+        ListNode mid = findMiddle(head);
+        TreeNode node = new TreeNode(mid.val);
+        if(head == mid){
+            return node;
+        }
+        node.left = sortedListToBST(head);
+        node.right= sortedListToBST(mid.next);
+        return node;
+    }
+
+    /**
+     * 找寻链表的中点
+     * @param head
+     * @return
+     */
+    public ListNode findMiddle(ListNode head){
+        ListNode prev = null;
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while(fast != null && fast.next != null){
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        if(prev != null){
+            prev.next = null; // 断开链表
+        }
+        return slow;
     }
 
     public static void main(String[] args) {
@@ -42,8 +71,16 @@ public class Question_109 {
         tmp2.right = tmp5;
         tmp3.left = tmp6;
 
-        ListNode node = new ListNode(0);
-        System.out.println(question.sortedListToBST(node));
+        ListNode node1 = new ListNode(-10);
+        ListNode node2 = new ListNode(-3);
+        node1.next = node2;
+        ListNode node3 = new ListNode(0);
+        node2.next = node3;
+        ListNode node4 = new ListNode(5);
+        node3.next = node4;
+        ListNode node5 = new ListNode(9);
+        node4.next = node5;
+        System.out.println(question.sortedListToBST(node1));
     }
 
 }
