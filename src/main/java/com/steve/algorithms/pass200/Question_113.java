@@ -35,6 +35,10 @@ public class Question_113 {
         return null;
     }
 
+    public void backtrace(TreeNode root, int sum, List<List<Integer>> res, List<Integer> temp){
+
+    }
+
     public static void main(String[] args) {
         Question_113 question = new Question_113();
         TreeNode tmp = new TreeNode(5);
