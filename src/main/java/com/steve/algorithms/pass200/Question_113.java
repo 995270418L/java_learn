@@ -2,6 +2,7 @@ package com.steve.algorithms.pass200;
 
 import com.steve.algorithms.base.TreeNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,12 +32,21 @@ import java.util.List;
  */
 public class Question_113 {
 
+    private List<List<Integer>> res = new ArrayList<>();
+    private List<Integer> inner = new ArrayList<>();
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        return null;
-    }
-
-    public void backtrace(TreeNode root, int sum, List<List<Integer>> res, List<Integer> temp){
-
+        if(root == null) return res;
+        sum -= root.val;
+        inner.add(root.val);
+        if(root.left == null && root.right == null){
+            if(sum == 0){
+                res.add(new ArrayList<>(inner)); // 得拷贝，不然会 remove 所有节点信息
+            }
+        }
+        if(root.left != null) pathSum(root.left, sum);
+        if(root.right != null) pathSum(root.right, sum);
+        inner.remove(inner.size() - 1);
+        return res;
     }
 
     public static void main(String[] args) {
