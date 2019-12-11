@@ -1,8 +1,7 @@
 package com.steve.algorithms.pass200;
 
-import com.steve.algorithms.base.Node;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
