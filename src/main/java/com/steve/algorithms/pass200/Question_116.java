@@ -1,20 +1,16 @@
 package com.steve.algorithms.pass200;
 
-import com.steve.algorithms.base.Node;
-import com.steve.algorithms.base.TreeNode;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.steve.algorithms.base.Node3;
 
 /**
  *
  * 给定一个完美二叉树，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：
  *
- * struct Node {
+ * struct Node3 {
  *   int val;
- *   Node *left;
- *   Node *right;
- *   Node *next;
+ *   Node3 *left;
+ *   Node3 *right;
+ *   Node3 *next;
  * }
  * 填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。
  *
@@ -47,10 +43,10 @@ public class Question_116 {
      * @param root
      * @return
      */
-    public Node connect(Node root) {
+    public Node3 connect(Node3 root) {
         if(root == null) return root;
-        Node tLeft = root.left;
-        Node tRight = root.right;
+        Node3 tLeft = root.left;
+        Node3 tRight = root.right;
         while (tLeft != null){
             tLeft.next = tRight;
             tLeft = tLeft.right;
@@ -63,8 +59,8 @@ public class Question_116 {
 
     public static void main(String[] args) {
         Question_116 question = new Question_116();
-        Node node = new Node(1);
-        System.out.println(question.connect(node));
+        Node3 node3 = new Node3(1);
+        System.out.println(question.connect(node3));
     }
 
 }

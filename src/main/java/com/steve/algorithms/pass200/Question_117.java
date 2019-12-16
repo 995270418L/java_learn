@@ -1,6 +1,6 @@
 package com.steve.algorithms.pass200;
 
-import com.steve.algorithms.base.Node;
+import com.steve.algorithms.base.Node3;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -9,11 +9,11 @@ import java.util.Queue;
  *
  * 给定一个二叉树
  *
- * struct Node {
+ * struct Node3 {
  *   int val;
- *   Node *left;
- *   Node *right;
- *   Node *next;
+ *   Node3 *left;
+ *   Node3 *right;
+ *   Node3 *next;
  * }
  * 填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。
  *
@@ -44,15 +44,15 @@ public class Question_117 {
      * @param root
      * @return
      */
-    public Node connect(Node root) {
+    public Node3 connect(Node3 root) {
         if(root == null) return root;
-        Queue<Node> queue = new LinkedList<>();
+        Queue<Node3> queue = new LinkedList<>();
         queue.add(root);
         while (!queue.isEmpty()){
-            Node cur = null;
+            Node3 cur = null;
             int size = queue.size();
             for(int i=0; i < size; i++){
-                Node tmp = queue.poll();
+                Node3 tmp = queue.poll();
                 if(cur != null){
                     cur.next = tmp;
                 }
@@ -66,21 +66,21 @@ public class Question_117 {
 
     public static void main(String[] args) {
         Question_117 question = new Question_117();
-        Node node1 = new Node(1);
-        Node node2 = new Node(2);
-        Node node3 = new Node(3);
-        Node node4 = new Node(4);
-        Node node5 = new Node(5);
-        Node node6 = new Node(6);
+        Node3 node31 = new Node3(1);
+        Node3 node32 = new Node3(2);
+        Node3 node3 = new Node3(3);
+        Node3 node34 = new Node3(4);
+        Node3 node35 = new Node3(5);
+        Node3 node36 = new Node3(6);
 
-        node1.left = node2;
-        node1.right = node3;
+        node31.left = node32;
+        node31.right = node3;
 
-        node2.left = node4;
-        node2.right = node5;
+        node32.left = node34;
+        node32.right = node35;
 
-        node3.right = node6;
-        System.out.println(question.connect(node1));
+        node3.right = node36;
+        System.out.println(question.connect(node31));
     }
 
 }
