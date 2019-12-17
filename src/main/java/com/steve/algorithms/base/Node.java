@@ -1,23 +1,25 @@
 package com.steve.algorithms.base;
 
-import java.util.List;
-
 public class Node {
+
     public int val;
-    public List<Node> neighbors;
+    public Node next;
+    public Node random;
     public Node() {}
 
-
-    public Node(int _val, List<Node> neighbors) {
+    public Node(int _val,Node _next,Node _random) {
         val = _val;
-        this.neighbors = neighbors;
+        next = _next;
+        random = _random;
     }
 
     @Override
     public String toString() {
         return "Node{" +
                 "val=" + val +
-                ", neighbors=" + neighbors +
+                ", next=" + next +
+                ", random=" + random +
                 '}';
     }
+
 }

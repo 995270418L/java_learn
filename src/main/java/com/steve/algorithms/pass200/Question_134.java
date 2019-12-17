@@ -1,9 +1,5 @@
 package com.steve.algorithms.pass200;
 
-import com.steve.algorithms.base.Node;
-
-import java.util.*;
-
 /**
  *
  * 在一条环路上有 N 个加油站，其中第 i 个加油站有汽油 gas[i] 升。
@@ -54,13 +50,25 @@ import java.util.*;
 public class Question_134 {
 
     public int canCompleteCircuit(int[] gas, int[] cost) {
-        return 0;
+        int n = gas.length;
+        int totalRank =0, currRank=0;
+        int startLocation = 0;
+        for(int i=0; i<n; i++){
+            int diff = gas[i] - cost[i];
+            totalRank += diff;
+            currRank += diff;
+            if( currRank < 0 ){
+                startLocation = i + 1;
+                currRank = 0;
+            }
+        }
+        return totalRank >= 0 ? startLocation : -1;
     }
 
     public static void main(String[] args) {
         Question_134 question = new Question_134();
         char[][] src = {{'X','X','X','X'},{'X','O','O','X'},{'X','X','O','X'},{'X','O','X','X'}};
-        System.out.println(question.canCompleteCircuit(new int[]{1,2,3}, new int[]{1,2,3}));
+        System.out.println(question.canCompleteCircuit(new int[]{1,2,3,4,5}, new int[]{3,4,5,1,2}));
     }
 
 }

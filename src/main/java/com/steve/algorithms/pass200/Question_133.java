@@ -1,7 +1,6 @@
 package com.steve.algorithms.pass200;
 
-import com.steve.algorithms.base.Node;
-import com.steve.algorithms.base.Node3;
+import com.steve.algorithms.base.Node2;
 
 import java.util.*;
 
@@ -36,34 +35,34 @@ public class Question_133 {
 
     /**
      * bfs , 使用hashMap 记录访问过的节点
-     * @param node
+     * @param node2
      * @return
      */
-    public Node cloneGraph(Node node) {
-        if(node == null) return null;
-        Node head = new Node();
-        Map<Integer, Node> map = new HashMap<>();
-        Queue<Node> queue = new LinkedList<>();
-        queue.add(node);
+    public Node2 cloneGraph(Node2 node2) {
+        if(node2 == null) return null;
+        Node2 head = new Node2();
+        Map<Integer, Node2> map = new HashMap<>();
+        Queue<Node2> queue = new LinkedList<>();
+        queue.add(node2);
         while (!queue.isEmpty()){
-            Node temp = queue.poll();
-            Node nd = null; // 新node
+            Node2 temp = queue.poll();
+            Node2 nd = null; // 新node
             if(map.containsKey(temp.val)){
                 nd = map.get(temp.val);
             }else{
-                nd = new Node(temp.val, new ArrayList<>());
+                nd = new Node2(temp.val, new ArrayList<>());
                 map.put(temp.val, nd);
             }
             if(map.size() == 1) head = nd;
-            List<Node> lists = temp.neighbors;
-            for(Node tNode : lists){
-                if(map.containsKey(tNode.val)){
-                    nd.neighbors.add(map.get(tNode.val));
+            List<Node2> lists = temp.neighbors;
+            for(Node2 tNode2 : lists){
+                if(map.containsKey(tNode2.val)){
+                    nd.neighbors.add(map.get(tNode2.val));
                 }else{
-                    queue.add(tNode);
-                    Node t = new Node(tNode.val, new ArrayList<>());
+                    queue.add(tNode2);
+                    Node2 t = new Node2(tNode2.val, new ArrayList<>());
                     nd.neighbors.add(t);
-                    map.put(tNode.val, t);
+                    map.put(tNode2.val, t);
                 }
             }
         }
