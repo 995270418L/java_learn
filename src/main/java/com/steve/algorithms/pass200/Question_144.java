@@ -36,14 +36,15 @@ public class Question_144 {
         List<Integer> res = new ArrayList<>();
         Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
-        while(!stack.isEmpty() && root != null){
-            while (root != null){
-                root = root.left;
-                stack.push(root);
-            }
+        while(!stack.isEmpty()){
             TreeNode curr = stack.pop();
             res.add(curr.val);
-
+            if(curr.right != null){
+                stack.push(curr.right);
+            }
+            if(curr.left != null){
+                stack.push(curr.left);
+            }
         }
         return res;
     }
