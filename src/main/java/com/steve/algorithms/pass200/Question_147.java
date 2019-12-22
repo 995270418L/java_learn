@@ -31,14 +31,106 @@ import java.util.Map;
  */
 public class Question_147 {
 
-    public ListNode insertionSortList(ListNode head) {
-        return null;
+    public ListNode insertionSortList(ListNode head){
+        ListNode dummy = new ListNode(0), pre;
+        dummy.next = head;
+        while (head != null && head.next != null){
+            if(head.val <= head.next.val){
+                head = head.next;
+                continue;
+            }
+            pre = dummy;
+            while (pre.next.val <= head.next.val) pre = pre.next;
+            ListNode temp = head.next.next;
+            head.next.next = pre.next;
+            pre.next = head.next;
+            head.next = temp;
+        }
+        return dummy.next;
+    }
+
+    /**
+     * 指针值动节点不动， 效率太低
+     * @param head
+     * @return
+     */
+    public ListNode insertionSortList2(ListNode head){
+        if(head == null) return null;
+        ListNode p, q ;
+        int temp;
+        for(p = head;p != null;p = p.next){
+            for(q = p.next;q != null;q = q.next){
+                if(p.val > q.val){
+                    temp = p.val;
+                    p.val = q.val;
+                    q.val = temp;
+                }
+            }
+        }
+        return head;
+    }
+
+
+    /**
+     * 指针节点动值不动
+     * @param head
+     * @return
+     */
+    public ListNode insertionSortList1(ListNode head){
+        if(head == null) return null;
+        ListNode dummy = new ListNode(0);
+        ListNode p , q;
+        dummy.next = head;
+        p = head.next;
+        head.next = null;
+        while (p != null){
+            ListNode curr = p.next;
+            q = dummy;
+            while (q.next != null && p.val >= q.next.val) q = q.next;
+            p.next = q.next;
+            q.next = p;
+            p = curr;
+        }
+        return dummy.next;
+    }
+
+    // 这方法着实巧妙，就是有点效率太低
+    public ListNode insertionSortListReverse(ListNode head) {
+        ListNode res = null;
+        ListNode p = head;
+        while (p != null){
+            ListNode next = p.next;
+            res = reverse(res, p);
+            p = next;
+        }
+        return res;
+    }
+
+    /**
+     *
+     * @param head
+     * @param node
+     * @return
+     */
+    private ListNode reverse(ListNode head, ListNode node){
+        if(head == null || head.val > node.val){
+            node.next = head;
+            return node;
+        }
+        head.next = reverse(head.next, node);
+        return head;
     }
 
     public static void main(String[] args) {
         Question_147 question = new Question_147();
-
-        System.out.println(question.insertionSortList(null));
+        ListNode l1 = new ListNode(6);
+        ListNode l2 = new ListNode(7);
+        ListNode l3 = new ListNode(5);
+        ListNode l4 = new ListNode(4);
+        l1.next = l2;
+        l2.next = l3;
+        l3.next = l4;
+        System.out.println(question.insertionSortList(l1));
     }
 
 }
