@@ -18,16 +18,27 @@ package com.steve.algorithms.pass200;
  */
 public class Question_152 {
 
-
     public int maxProduct(int[] nums) {
-        return 0;
+        int max = Integer.MIN_VALUE, imax = 1, imin =1;
+        for(int i=0; i <nums.length; i++){
+            if(nums[i] < 0 ){
+                int temp = imax;
+                imax = imin;
+                imin = temp;
+            }
+            imax = Math.max(imax * nums[i], nums[i]);
+            imin = Math.min(imin * nums[i], nums[i]);
+
+            max = Math.max(imax, max);
+        }
+        return max;
     }
     
 
     public static void main(String[] args) {
         Question_152 question = new Question_152();
 
-        System.out.println(question.maxProduct(new int[]{3,2,5,6,1,2}));
+        System.out.println(question.maxProduct(new int[]{2,3,-2,4}));
     }
 
 }
