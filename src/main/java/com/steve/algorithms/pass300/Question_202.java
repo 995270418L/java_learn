@@ -1,6 +1,13 @@
 package com.steve.algorithms.pass300;
 
 import com.steve.algorithms.base.TreeNode;
+import jdk.nashorn.internal.ir.WhileNode;
+import org.checkerframework.checker.units.qual.A;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 简单：
@@ -22,26 +29,51 @@ import com.steve.algorithms.base.TreeNode;
 public class Question_202 {
 
     /**
-     * 看0的个数就知道了
-     * @param m
+     * 快慢指针 思想，总会相遇，如果相遇时结果为1，则是快乐数，反之则不是。
      * @param n
      * @return
      */
-    public int rangeBitwiseAnd(int m, int n) {
-        int zeroNum = 0;
-        while (n > m){
-            zeroNum ++;
-            m = m >> 1;
-            n = n >> 1;
-        }
-        return n << zeroNum;
+    public boolean isHappy(int n) {
+        int slow = n, fast = n;
+        do{
+            slow = squareNum(slow);
+            fast = squareNum(fast);
+            fast = squareNum(fast);
+        }while (slow != fast);
+
+        return slow == 1;
     }
 
+
+    public int squareNum(int n){
+        int sum  = 0;
+        while (n > 0){
+            int bit = n % 10;
+            sum += bit * bit;
+            n = n / 10;
+        }
+        return sum;
+    }
+
+    /**
+     * 集合的方法
+     * @param n
+     * @return
+     */
+    public boolean isHappy2 (int n) {
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(1,1);
+        while(!map.containsKey(n)){
+            map.put(n, n);
+            n = squareNum(n);
+        }
+        return n == 1;
+    }
 
     public static void main(String[] args) {
         Question_202 question = new Question_202();
         TreeNode root = new TreeNode(1);
-        System.out.println(question.rangeBitwiseAnd(5,7));
+        System.out.println(question.isHappy2(9));
     }
 
 }
