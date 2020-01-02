@@ -2,6 +2,9 @@ package com.steve.algorithms.pass300;
 
 import com.steve.algorithms.base.ListNode;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  *
  * 现在你总共有 n 门课需要选，记为 0 到 n-1。
@@ -33,10 +36,30 @@ import com.steve.algorithms.base.ListNode;
  */
 public class Question_207 {
 
+    /**
+     * 判断有向无环图是否无环. （效率低下）
+     * 原本的思路是 确定有向无环图结构（邻接矩阵法），然后找寻入度为0的顶点，然后删除该顶点并且和他的边，重复操作。
+     * 直到入度为0的顶点为0（empty） 这是BFS的思路
+     * @param numCourses
+     * @param prerequisites
+     * @return
+     */
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        // todo tomorrow
-        return false;
+        int[] indegress = new int[numCourses];
+        for(int[] cp: prerequisites) indegress[cp[0]] ++;
+        Queue<Integer> queue = new LinkedList<>();
+        for(int i=0; i < numCourses; i++) if (indegress[i] == 0) queue.add(i);
+        while (!queue.isEmpty()){
+            Integer pre = queue.poll(); // 入度为0的节点
+            numCourses -- ;
+            for(int[] cp : prerequisites){
+                if(cp[1] != pre) continue;
+                if(--indegress[cp[0]] == 0) queue.add(cp[0]);
+            }
+        }
+        return numCourses == 0;
     }
+
 
     public static void main(String[] args) {
         Question_207 question = new Question_207();
