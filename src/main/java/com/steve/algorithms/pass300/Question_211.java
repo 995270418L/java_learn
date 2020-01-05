@@ -1,7 +1,6 @@
 package com.steve.algorithms.pass300;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  *
@@ -27,29 +26,86 @@ import java.util.Queue;
  */
 public class Question_211 {
 
-    public int[] findOrder(int numCourses, int[][] prerequisites) {
-        int[] zeros = new int[numCourses];
-        for(int[] cp : prerequisites) zeros[cp[0]] ++; // 这也是一种邻接链表的表示方法
-        Queue<Integer> queue = new LinkedList<>();
-        for(int i=0; i< numCourses; i++) if(zeros[i] == 0) queue.add(i);
-        int[] res = new int[numCourses];
-        int i = 0;
-        while (!queue.isEmpty()){
-            Integer pre = queue.poll();
-            res[i] = pre;
-            i ++;
-            for(int[] cp : prerequisites){
-                if (cp[1] == pre){
-                    if(-- zeros[cp[0]] == 0) queue.add(cp[0]);
-                }
-            }
+    class TreeNode{
+
+        private TreeNode[] links;
+        private int R = 26;
+        private Boolean isEnd;
+        public TreeNode() {
+            links = new TreeNode[R];
+            isEnd = false;
         }
-        return i == numCourses ? res : new int[0];
+        public boolean containKey(char ch){
+            return links[ch - 'a'] != null;
+        }
+        public void put(char ch, TreeNode treeNode){
+            links[ch - 'a'] = treeNode;
+        }
+        public TreeNode get(char ch){
+            return links[ch - 'a'];
+        }
+    }
+
+    private TreeNode root;
+
+    /** Initialize your data structure here. */
+    public Question_211() {
+        root = new TreeNode();
+    }
+
+    /** Adds a word into the data structure. */
+    public void addWord(String word) {
+        TreeNode temp = root;
+        for(int i=0; i<word.length(); i++){
+            char ch = word.charAt(i);
+            TreeNode newNode = null;
+            if(!temp.containKey(ch)){
+                newNode = new TreeNode();
+                temp.put(ch, newNode);
+            }else{
+                newNode = temp.get(ch);
+            }
+            temp = newNode;
+        }
+        temp.isEnd = true;
+    }
+
+    /**
+     * 搜索的时候使用 DFS 吧
+     * @param word
+     * @return
+     */
+    public boolean search(String word) {
+        return dfs(root, word, 0);
+    }
+
+    public boolean dfs(TreeNode node, String word, int start){
+        if(node == null) return false;
+        if(start == word.length()) return node.isEnd;
+
+        char ch = word.charAt(start);
+        if(ch == '.'){
+            TreeNode[] nodes = node.links;
+            for(TreeNode tmp : nodes){
+                if(dfs(tmp, word, start + 1)) return true;
+            }
+            return false;
+        }else{
+            if(!node.containKey(ch)) return false;
+            node = node.get(ch);
+            return dfs(node, word, start + 1);
+        }
     }
 
     public static void main(String[] args) {
         Question_211 question = new Question_211();
-        System.out.println(question.findOrder(7, new int[][]{{2,3,1},{2,4,3}}));
+        question.addWord("bad");
+        question.addWord("dad");
+        question.addWord("mad");
+        System.out.println(question.search("pad"));
+        System.out.println(question.search("bad"));
+        System.out.println(question.search(".ad"));
+        System.out.println(question.search("b.."));
     }
 
 }
