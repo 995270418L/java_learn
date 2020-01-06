@@ -1,7 +1,6 @@
 package com.steve.algorithms.pass300;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.TreeSet;
 
 /**
  *
@@ -23,14 +22,60 @@ import java.util.Map;
  */
 public class Question_220 {
 
+    /**
+     * 滑动窗口 超时
+     * @param nums
+     * @param k
+     * @param t
+     * @return
+     */
     public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
-        // todo tomorrow;
+        for(int i=0; i<nums.length; i++){
+            for(int j=Math.max(i - k, 0); j < i; j++){
+                if(Math.abs(nums[j] - nums[i]) <= t) return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 二叉搜索树 43.9 效率也挺低的，毕竟需要维护一颗自平衡二叉搜索树
+     * @param nums
+     * @param k
+     * @param t
+     * @return
+     */
+    public boolean containsNearbyAlmostDuplicate2(int[] nums, int k, int t) {
+        TreeSet<Integer> set = new TreeSet<>();
+        for(int i=0; i< nums.length; i++){
+            // 大于或者等于当前元素的 最近的右元素
+            Integer bs = set.ceiling(nums[i]);
+            if(bs != null && bs <= t + nums[i]) return true;
+            Integer lt = set.floor(nums[i]);
+            if(lt != null && nums[i] <= lt + t) return true;
+            set.add(nums[i]);
+            if(set.size() > k){
+                set.remove(nums[i - k]);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 桶排序思想 (正解)
+     * @param nums
+     * @param k
+     * @param t
+     * @return
+     */
+    public boolean containsNearbyAlmostDuplicate3(int[] nums, int k, int t) {
         return false;
     }
 
     public static void main(String[] args) {
         Question_220 question = new Question_220();
-        System.out.println(question.containsNearbyAlmostDuplicate(new int[]{1,2,3,1,2,3},2, 5));
+//        System.out.println(question.containsNearbyAlmostDuplicate2(new int[]{1,5,9,1,5,9},2, 3));
+        System.out.println(question.containsNearbyAlmostDuplicate2(new int[]{-1,2147483647},1, 2147483647));
     }
 
 }
