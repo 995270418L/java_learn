@@ -23,20 +23,22 @@ import java.util.*;
  */
 public class Question_228 {
 
+    /**
+     * 快慢指针
+     * @param nums
+     * @return
+     */
     public List<String> summaryRanges(int[] nums) {
         List<String> res = new ArrayList<>();
-        if(nums == null || nums.length < 1) return res;
-        int start = nums[0];
-        for(int i=1; i<nums.length; i++){
-            if (nums[i] - nums[i-1] <= 1) {
-                continue;
-            }
-            int end = nums[i-1];
-            res.add(end == start ? "" +start : "" + start + "->" +end);
-            start = end;
+        for(int i,j =0; j <nums.length; j++){
+            i = j;
+            while ((j + 1) < nums.length && nums[j+1] == nums[j] + 1) j ++;
+            if(i == j)
+                res.add(nums[i] + "");
+            else
+                res.add(nums[i] + "->" + nums[j]);
         }
         return res;
-//        res.add();
     }
 
     public static void main(String[] args) {
@@ -57,7 +59,7 @@ public class Question_228 {
         t3.left = t6;
 //        t3.right = t7;
 
-        System.out.println(question.summaryRanges(new int[]{1,2,3,4,5}));
+        System.out.println(question.summaryRanges(new int[]{1,2,3,5,6}));
     }
 
 }
