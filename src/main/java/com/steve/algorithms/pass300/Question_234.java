@@ -2,9 +2,9 @@ package com.steve.algorithms.pass300;
 
 
 import com.steve.algorithms.base.ListNode;
-import com.steve.algorithms.base.TreeNode;
 
 /**
+ * 简单:
  *
  * 请判断一个链表是否为回文链表。
  *
@@ -22,19 +22,46 @@ import com.steve.algorithms.base.TreeNode;
  */
 public class Question_234 {
 
-    public boolean isPalindrome(ListNode head) {
-        return false;
+    /**
+     * 快慢指针
+     * @param head
+     * @return
+     */
+    public boolean isPalindrome2(ListNode head) {
+        if(head == null || head.next == null) return true;
+        ListNode slow = head, fast = head;
+        ListNode pre = head, prev = null;
+        while (fast != null && fast.next != null){
+            pre = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+            pre.next = prev;
+            prev = pre;
+        }
+        if(fast != null){
+            // 奇数链表
+            slow = slow.next;
+        }
+        while (pre != null && slow != null){
+            if(pre.val != slow.val) return false;
+            pre = pre.next;
+            slow = slow.next;
+        }
+        return true;
     }
-
 
     public static void main(String[] args) {
         Question_234 question = new Question_234();
-        TreeNode root = new TreeNode(0);
-        TreeNode t1 = new TreeNode(1);
-        TreeNode t2 = new TreeNode(2);
-        TreeNode t3 = new TreeNode(3);
-        Boolean a = new Boolean(false);
-        System.out.println(question.isPalindrome(null));
+        ListNode r = new ListNode(1);
+        ListNode r1 = new ListNode(2);
+        ListNode r2 = new ListNode(2);
+        ListNode r3 = new ListNode(1);
+
+        r.next = r1;
+        r1.next = r2;
+        r2.next = r3;
+
+        System.out.println(question.isPalindrome2(r));
     }
 
 }
