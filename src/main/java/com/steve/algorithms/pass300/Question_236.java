@@ -33,25 +33,34 @@ import com.steve.algorithms.base.TreeNode;
  */
 public class Question_236 {
 
+    private TreeNode ans;
+
     /**
      * 递归
-     *
      * @param root
      * @param p
      * @param q
      * @return
      */
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if(root != null) {
-            if (p.val > root.val && q.val > root.val) {
-                return lowestCommonAncestor(root.right, p, q);
-            } else if (p.val < root.val && q.val < root.val) {
-                return lowestCommonAncestor(root.left, p, q);
-            } else {
-                return root;
-            }
+        dfs(root, p, q);
+        return ans;
+    }
+
+    public boolean dfs(TreeNode currentNode, TreeNode p, TreeNode q){
+        if(currentNode == null) {
+            return false;
         }
-        return root;
+
+        int left = dfs(currentNode.left, p, q) ? 1 : 0;
+        int right = dfs(currentNode.right, p, q) ? 1 : 0;
+        int mid = (currentNode == p || currentNode == q) ? 1 : 0;
+
+        if( left + right + mid >= 2 ){
+            this.ans = currentNode;
+        }
+
+        return mid + left + right > 0;
     }
 
     public static void main(String[] args) {
