@@ -3,6 +3,8 @@ package com.steve.algorithms.pass300;
 
 import com.steve.algorithms.base.TreeNode;
 
+import java.util.*;
+
 /**
  *
  * 给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
@@ -45,6 +47,44 @@ public class Question_236 {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         dfs(root, p, q);
         return ans;
+    }
+
+    /**
+     * 找寻共有的parent节点
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
+        Map<TreeNode, TreeNode> parentMap = new HashMap<>();
+        parentMap.put(root, null);
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+
+        while (!parentMap.containsKey(p) || !parentMap.containsKey(q)){
+            TreeNode head = stack.pop();
+            if(head.left != null){
+                stack.push(head.left);
+                parentMap.put(head.left, head);
+            }
+
+            if(head.right != null){
+                stack.push(head.right);
+                parentMap.put(head.right, head);
+            }
+        }
+        Set<TreeNode> pSet= new HashSet<>();
+        while (p != null){
+            pSet.add(p);
+            p = parentMap.get(p);
+        }
+
+        while(!pSet.contains(q)){
+            q = parentMap.get(q);
+        }
+
+        return q;
     }
 
     public boolean dfs(TreeNode currentNode, TreeNode p, TreeNode q){
