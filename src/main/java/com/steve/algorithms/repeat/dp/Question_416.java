@@ -28,10 +28,10 @@ public class Question_416 {
         dp[0][0] = 0;
         for (int i = 1; i <= size; i++) {
             for (int j = 1; j <= V; j++) {
-                if (c[i] > j) {
+                if (c[i-1] > j) {
                     dp[i][j] = dp[i - 1][j];  // 不放入这个物品
                 } else {
-                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - c[i]] + v[i]);
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - c[i-1]] + v[i-1]);
                 }
             }
         }
