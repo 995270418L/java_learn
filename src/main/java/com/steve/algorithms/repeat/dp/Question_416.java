@@ -3,9 +3,65 @@ package com.steve.algorithms.repeat.dp;
 
 public class Question_416 {
 
+    /**
+     * 0-1 背包问题
+     * 1. 这个问题需要转换一下，能否找到前 n 个数字的和为总数和的 一半
+     * 2. 每个数字都必须选择
+     *
+     * @param nums
+     * @return
+     */
     public boolean canPartition(int[] nums) {
+        // 统计 nums 的和
+        int sum = 0;
+        for(int num : nums){
+            sum += num;
+        }
+        // 如果 sum 为奇数， 就不符合要求
+        if((sum & 1) == 1) return false;
+        int n = nums.length;
+        boolean[][] dp = new boolean[n + 1][sum / 2 + 1];
+        for(int i=1; i<= n; i++){
+            for(int j=0; j<= sum/2; j++){
+                if(nums[i-1] > j){
+                    dp[i][j] = dp[i-1][j];
+                } else if (nums[i-1] == j){
+                    dp[i][j] = true;
+                } else {
+                    dp[i][j] = dp[i-1][j] || dp[i-1][j-nums[i-1]];
+                }
+            }
+        }
+        return dp[n][sum/2];
+    }
 
-        return false;
+    /**
+     * 空间复杂度将为 O(SUM/S)
+     * @param nums
+     * @return
+     */
+    public boolean canPartition2(int[] nums) {
+        // 统计 nums 的和
+        int sum = 0;
+        for(int num : nums){
+            sum += num;
+        }
+        // 总和 sum 不可能为奇数，
+        if((sum & 1) == 1) return false;
+        int n = nums.length;
+        boolean[] dp = new boolean[sum / 2 + 1];
+        for(int i=1; i<= n; i++){
+            for(int j=sum/2; j >= nums[i-1]; j--){
+                if(nums[i-1] > j){
+                    dp[j] = dp[j];
+                } else if (nums[i-1] == j){
+                    dp[j] = true;
+                } else {
+                    dp[j] = dp[j] || dp[j-nums[i-1]];
+                }
+            }
+        }
+        return dp[sum/2];
     }
 
     /**
@@ -23,8 +79,6 @@ public class Question_416 {
      * 3.
      *  空间压缩
      *  V
-     *
-     *
      */
     public int packageZeroToOne(int V, int[] c, int[] v) {
         int size = v.length;
@@ -48,9 +102,9 @@ public class Question_416 {
         for (int i = 1; i <= size; i++) {
             for (int j = V; j > 0; j--) {
                 if (c[i - 1] > j) {
-                    dp[j] = dp[j-1];  // 不放入这个物品
+                    dp[j] = dp[j];  // 不放入这个物品
                 } else {
-                    dp[j] = Math.max(dp[j-1], dp[j - c[i - 1]] + v[i - 1]);
+                    dp[j] = Math.max(dp[j], dp[j - c[i - 1]] + v[i - 1]);
                 }
             }
         }
@@ -61,6 +115,7 @@ public class Question_416 {
         Question_416 question = new Question_416();
         int res = question.packageZeroToOne2(10, new int[]{2,2,6,5,4}, new int[]{6,3,5,4,6});
         System.out.println(res);
+//        System.out.println(question.canPartition2(new int[]{0,3, 2, 5}));
     }
 
 }
