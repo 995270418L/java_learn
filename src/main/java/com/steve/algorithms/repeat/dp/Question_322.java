@@ -1,25 +1,34 @@
 package com.steve.algorithms.repeat.dp;
 
 
+import java.util.Arrays;
+
 /**
  * 完全背包问题
  */
 public class Question_322 {
 
+    /**
+     * 初始化的时候需要注意：
+     *  1: 默认数组的最小金额数量是 amount + 1;
+     *  2: dp[0] 等于 0;
+     * @param coins
+     * @param amount
+     * @return
+     */
     public int coinChange(int[] coins, int amount) {
         int n = coins.length;
         int[] dp = new int[amount + 1];
-        return 0;
-//        for(int i=0; i<n; i++){
-//            for(int j=1; j<=amount; j++){
-//                if(coins[i] > j){
-//                    dp[j] = dp[j];
-//                } else {
-//                    dp[j] = Math.max(dp[j], dp[j - coins[i]] +  );
-//                }
-//            }
-//        }
-//        return dp[amount];
+        Arrays.fill(dp, amount + 1);
+        dp[0] = 0;
+        for(int i=0; i<n; i++){
+            for(int j=1; j<=amount; j++){
+                if(coins[i] <= j) {
+                    dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);
+                }
+            }
+        }
+        return dp[amount] > amount ? -1 : dp[amount];
     }
 
     /**
@@ -95,7 +104,7 @@ public class Question_322 {
 
     public static void main(String[] args) {
         Question_322 question = new Question_322();
-        int res = question.coinChange(new int[]{2,2,6,5,4}, 33);
+        int res = question.coinChange(new int[]{1,2,5}, 11);
         System.out.println(res);
     }
 
