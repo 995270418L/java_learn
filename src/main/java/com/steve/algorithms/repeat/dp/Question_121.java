@@ -9,8 +9,8 @@ public class Question_121 {
      *  dp[i][j] 表示在手上持股为 i 的这一天， 股票状态为 j 所获得的最大利润
      *
      * 2: 转移方程：
-     *  1). dp[i][0] 表示第 i 天不持股， 前一天有两种可能，   dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i])
-     *  2). dp[i][1] 表示第 i 天持股，前一天也有两种可能，    dp[i][1] = Math.max(dp[i-1][1], -prices[i])
+     *  1). dp[i][0] 表示第 i 天不持股，前一天有两种可能，   dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i])
+     *  2). dp[i][1] 表示第 i 天持股， 前一天也有两种可能， dp[i][1] = Math.max(dp[i-1][1], -prices[i])
      *
      * 3: 考虑初始值：
      *  dp[0][0] = 0, dp[0][1] = -prices[0]

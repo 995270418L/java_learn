@@ -34,7 +34,7 @@ public class Question_198 {
 
     public static void main(String[] args) {
         Question_198 question = new Question_198();
-        int res = question.rob(new int[]{2,7,9,3,1});
+        int res = question.rob(new int[]{2, 3, 3, 3, 1});
         System.out.println(res);
     }
 
