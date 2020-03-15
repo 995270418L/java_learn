@@ -2,6 +2,8 @@ package com.steve.algorithms.pass100;
 
 import com.steve.algorithms.base.TreeNode;
 
+import java.util.Stack;
+
 /**
  * 简单
  *
@@ -46,7 +48,6 @@ public class Question_100 {
         if(p.val != q.val) return false;
         return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
-
 
     public static void main(String[] args) {
         Question_100 question = new Question_100();
