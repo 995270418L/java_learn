@@ -16,10 +16,10 @@ public class ReverseNode {
         if(head == null || head.next == null){
             return head;
         }
-        ListNode tmp = head.next;
-        head.next = swap(head.next.next);
-        tmp.next = head;
-        return tmp;
+        ListNode tmp = head.next;           //  保存下一节点
+        head.next = swap(head.next.next);   // 当前节点的next指向下一个交换的头节点
+        tmp.next = head;                    // 两节点互换
+        return tmp;                         // 返回头节点
     }
 
     public static void main(String[] args) {
