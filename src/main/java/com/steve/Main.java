@@ -5,9 +5,6 @@ import com.steve.ifeve.Reflection.DynamicReflection.AnInterface2;
 import com.steve.ifeve.Reflection.DynamicReflection.MyObjectSupperClass;
 
 import java.io.IOException;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class Main extends MyObjectSupperClass implements AnInterface2 {
 
@@ -154,7 +151,7 @@ public class Main extends MyObjectSupperClass implements AnInterface2 {
 //    }
 
     public static void main(String... args) throws IOException {
-
+        System.out.println("print error");
 //        FileInputStream inputStream = new FileInputStream("/home/liu/Desktop/chinese.txt");
 //        int count = 0;
 //        int a = inputStream.read();
