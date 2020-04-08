@@ -12,14 +12,16 @@ public class Main {
         Thread[] thread = new Thread[10];
         Sync sync = new Sync();
         thread[0] = new Thread(() -> {
-            sync.setValue();
-            System.out.println(Sync.a);
+            try {
+                Sync.sync1();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }, "t1");
         thread[0].start();
         for (int i = 1; i < 10; i++) {
             thread[i] = new Thread(() -> {
-                sync.changeValue();
-                System.out.println(Sync.a);
+                sync.sync2();
             }, "t" + i);
             thread[i].start();
         }

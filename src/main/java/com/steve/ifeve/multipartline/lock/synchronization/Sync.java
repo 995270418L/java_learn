@@ -22,4 +22,15 @@ public class Sync {
         a = 8;
     }
 
+    public synchronized static void sync1() throws InterruptedException {
+        a = 9;
+        Thread.sleep(5000);
+        System.out.println(a);
+    }
+
+    public void sync2() {
+        a = 10;
+        System.out.println(a);
+    }
+
 }
