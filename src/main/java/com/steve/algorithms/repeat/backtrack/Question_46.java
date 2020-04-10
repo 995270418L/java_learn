@@ -1,4 +1,4 @@
-package com.steve.algorithms.recruit;
+package com.steve.algorithms.repeat.backtrack;
 
 import java.util.ArrayList;
 import java.util.List;
