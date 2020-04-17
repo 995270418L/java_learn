@@ -32,7 +32,6 @@ public class Question_56 {
 
             } else {
                 list.add(secI);
-
             }
             i++;
         }
