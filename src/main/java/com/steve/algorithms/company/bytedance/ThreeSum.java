@@ -10,11 +10,11 @@ public class ThreeSum {
 
     public static void main(String[] args) {
         ThreeSum cm = new ThreeSum();
-        System.out.println(cm.threeSum(new int[]{-1, 0, 1, 2, -1, -4}));
+        System.out.println(cm.threeSum(new int[]{0, 0, 0})); // -4 -1 -1 0 1 2
     }
 
     /**
-     * 回溯法
+     * 回溯法, 解决重复数字很麻烦，使用滑动窗口 + 排序算法
      *
      * @param nums
      * @return
@@ -22,10 +22,36 @@ public class ThreeSum {
     public List<List<Integer>> threeSum(int[] nums) {
         if (nums.length < 3) return res;
         Arrays.sort(nums);
-        backtrace(new ArrayList<>(), 0, 0, nums);
+        for (int i = 0; i <= nums.length - 3; i++) {
+            if (nums[i] > 0) break;
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            add(nums, i);
+        }
         return res;
     }
 
+    public void add(int[] nums, int start) {
+        int left = start + 1, right = nums.length - 1;
+        List<Integer> list = new ArrayList();
+        list.add(nums[start]);
+        while (left < right) {
+            int sum = nums[start] + nums[left] + nums[right];
+            if (sum == 0) {
+                list.add(nums[left]);
+                list.add(nums[right]);
+                res.add(new ArrayList(list));
+                list = new ArrayList();
+                list.add(nums[start]);
+                while (left < right && nums[left] == nums[++left]) ;
+                while (left < right && nums[right] == nums[--right]) ;
+
+            } else if (sum > 0) {
+                right--;
+            } else {
+                left++;
+            }
+        }
+    }
 
     public void backtrace(List<Integer> tmp, int start, int sum, int[] nums) {
         if (sum == 0 && tmp.size() == 3) {
