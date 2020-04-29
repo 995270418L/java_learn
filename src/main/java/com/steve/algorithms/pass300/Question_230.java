@@ -2,7 +2,6 @@ package com.steve.algorithms.pass300;
 
 
 import com.steve.algorithms.base.TreeNode;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.ArrayList;
 import java.util.List;

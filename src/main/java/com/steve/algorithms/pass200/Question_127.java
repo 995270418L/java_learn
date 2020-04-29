@@ -1,6 +1,6 @@
 package com.steve.algorithms.pass200;
 
-import javafx.util.Pair;
+import com.steve.algorithms.base.Pair;
 
 import java.util.*;
 
@@ -91,7 +91,7 @@ public class Question_127 {
     }
 
 
-    private HashMap<String, List<String>> allowMap = new HashMap<>();
+    private final HashMap<String, List<String>> allowMap = new HashMap<>();
     private int len;
 
     /**

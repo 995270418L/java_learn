@@ -2,7 +2,6 @@ package com.steve.ifeve.multipartline.lock.instance;
 
 public class MultiDemo {
 
-    public static TestBean testBean = new TestBean(3);
     private static volatile MultiDemo multiDemo;
 
     private MultiDemo() {

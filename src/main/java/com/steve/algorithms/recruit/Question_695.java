@@ -1,8 +1,9 @@
 package com.steve.algorithms.recruit;
 
-import javafx.util.Pair;
+import com.steve.algorithms.base.Pair;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * 最大岛屿面积
@@ -19,9 +20,9 @@ public class Question_695 {
         int mRow = grid.length;
         int mCol = grid[0].length;
         int max = 0;
-        for(int i=0; i<mRow; i++){
-            for(int j=0; j<mCol; j++){
-                if(grid[i][j] == 1){
+        for (int i = 0; i < mRow; i++) {
+            for (int j = 0; j < mCol; j++) {
+                if (grid[i][j] == 1) {
                     max = Math.max(max, islandArea(grid, i, j));
                 }
             }
@@ -29,13 +30,13 @@ public class Question_695 {
         return max;
     }
 
-    private int[] ex = {-1, 1, 0, 0};                       // 上、下、左、右
-    private int[] ey = {0, 0, -1, 1};                       // 上、下、左、右
+    private final int[] ex = {-1, 1, 0, 0};                       // 上、下、左、右
+    private final int[] ey = {0, 0, -1, 1};                       // 上、下、左、右
 
     /**
      * 扩展性周边遍历 BFS, 使用队列，周边扩展
      */
-    public int islandArea(int[][] grid, int row, int col){
+    public int islandArea(int[][] grid, int row, int col) {
         int area = 0;
         int mRow = grid.length;
         int mCol = grid[0].length;

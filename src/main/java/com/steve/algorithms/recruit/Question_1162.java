@@ -1,6 +1,6 @@
 package com.steve.algorithms.recruit;
 
-import javafx.util.Pair;
+import com.steve.algorithms.base.Pair;
 
 import java.util.LinkedList;
 import java.util.Queue;

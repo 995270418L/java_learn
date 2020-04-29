@@ -1,6 +1,6 @@
 package com.steve.algorithms.recruit;
 
-import javafx.util.Pair;
+import com.steve.algorithms.base.Pair;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -10,7 +10,7 @@ import java.util.Queue;
  */
 public class Question_542 {
 
-    private int[][] change = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+    private final int[][] change = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
     private int res = 0;
 
     public static void main(String[] args) {

@@ -1,6 +1,6 @@
 package com.steve.ifeve.multipartline.lock.synchronization;
 
-import org.openjdk.jol.info.ClassLayout;
+import com.steve.ifeve.multipartline.lock.instance.MultiDemo;
 
 public class Main2 {
 
@@ -11,10 +11,26 @@ public class Main2 {
      * @throws InterruptedException
      */
     public static void main(String[] args) throws InterruptedException {
-        Object o = new Object();
-        synchronized (o) {   // 轻量级锁
-            System.out.println(ClassLayout.parseInstance(o).toPrintable());
+        Main2 main = new Main2();
+        main.testSingle();
+    }
+
+    public void testSingle() throws InterruptedException {
+        Thread[] threads = new Thread[10];
+        for (int i = 1; i <= 9; i++) {
+            threads[i] = new Thread(() -> {
+                try {
+                    MultiDemo.getInstance();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+            threads[i].start();
+        }
+        for (int i = 1; i <= 9; i++) {
+            threads[i].join();
         }
     }
+
 
 }

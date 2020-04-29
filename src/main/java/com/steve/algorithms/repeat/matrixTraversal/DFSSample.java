@@ -1,7 +1,7 @@
 package com.steve.algorithms.repeat.matrixTraversal;
 
+import com.steve.algorithms.base.Pair;
 import com.steve.algorithms.base.TreeNode;
-import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class DFSSample {
                 root = root.left;
             }
             root = stack.pop();
-            if(root.val <= min) return false;
+            if (root.val <= min) return false;
             min = root.val;
             root = root.right;
         }
@@ -38,17 +38,18 @@ public class DFSSample {
     }
 
 
-    private List<List<Integer>> res = new ArrayList<>();
-    private List<Integer> inner = new ArrayList<>();
+    private final List<List<Integer>> res = new ArrayList<>();
+    private final List<Integer> inner = new ArrayList<>();
 
     /**
      * 113: 路径总和2
+     *
      * @param root
      * @param sum
      * @return
      */
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        if(root == null) return res;
+        if (root == null) return res;
         inner.add(root.val);
         sum -= root.val;
         if(root.left == null && root.right == null){

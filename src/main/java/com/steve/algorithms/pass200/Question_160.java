@@ -1,9 +1,6 @@
 package com.steve.algorithms.pass200;
 
 import com.steve.algorithms.base.ListNode;
-import jdk.nashorn.internal.ir.WhileNode;
-
-import java.util.Stack;
 
 /**
  * 简单：
