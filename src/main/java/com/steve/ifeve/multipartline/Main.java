@@ -1,17 +1,21 @@
 package com.steve.ifeve.multipartline;
 
+
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by liu on 4/9/17.
  */
 public class Main {
 
-    public static void main(String... args) {
+    public static void main(String... args) throws NoSuchFieldException, IllegalAccessException {
         ConcurrentHashMap<Integer, Integer> map = new ConcurrentHashMap<>();
         for (int i = 0; i < 20; i++) {
             map.put(i + 1, i);
         }
+        CopyOnWriteArrayList list = new CopyOnWriteArrayList();
+        list.add(new Object());
     }
 
     static class Node {
