@@ -8,8 +8,7 @@ import java.util.Map;
 /**
  * 杨辉三角
  */
-public class PasacTriangle {
-
+public class PascalTriangle {
     private int[][] dp;
 
     public List<List<Integer>> generate(int numRows){
@@ -60,7 +59,7 @@ public class PasacTriangle {
     }
 
     public static void main(String[] args) {
-        PasacTriangle question = new PasacTriangle();
+        PascalTriangle question = new PascalTriangle();
 //        System.out.println(question.generate(30)); // 超出时间限制
         System.out.println(question.getRow(4));
     }

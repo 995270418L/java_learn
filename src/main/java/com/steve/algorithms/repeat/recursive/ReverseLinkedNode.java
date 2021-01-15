@@ -11,16 +11,16 @@ public class ReverseLinkedNode {
      *  1 -> 2 -> 3 -> 4 -> 5 -> NULL
      *  result:
      *  5 -> 4 -> 3 -> 2 -> 1 -> NULL
-     *
+     * 递归误区： 仅仅保存 next 是拿不到上一个节点的信息
      * @param head
      * @return
      */
     public ListNode reverseList(ListNode head) {
-        if(head == null) return null;
-        ListNode tmp = head.next;
-        head.next = reverseList(head.next);
-
-        return head;
+        if(head == null || head.next == null) return head;
+        ListNode p = reverseList(head.next);  // p == 5 head == 4
+        head.next.next = head;
+        head.next = null;
+        return p;
     }
 
     /**
@@ -51,7 +51,7 @@ public class ReverseLinkedNode {
         n2.next = n3;
         n3.next = n4;
         n4.next = n5;
-        System.out.println(rnn.reverseList2(head));
+        System.out.println(rnn.reverseList(head));
     }
 
 }
