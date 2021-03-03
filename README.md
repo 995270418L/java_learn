@@ -1,2 +1,2 @@
 # java_learn
-some java basic knowledge code demonstration
+some java basic knowledge and code demonstration
