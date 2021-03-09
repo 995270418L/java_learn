@@ -1,4 +1,4 @@
-package com.steve.algorithms;
+package com.steve.algorithmbook.itoalgorithms;
 
 public class DynamicPlan {
 
