@@ -7,6 +7,10 @@ public class Node {
     public Node random;
     public Node() {}
 
+    public Node(int _val){
+        val = _val;
+    }
+
     public Node(int _val,Node _next,Node _random) {
         val = _val;
         next = _next;

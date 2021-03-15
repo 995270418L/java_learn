@@ -5,6 +5,8 @@ import com.steve.ifeve.Reflection.DynamicReflection.AnInterface2;
 import com.steve.ifeve.Reflection.DynamicReflection.MyObjectSupperClass;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main extends MyObjectSupperClass implements AnInterface2 {
 
@@ -151,7 +153,16 @@ public class Main extends MyObjectSupperClass implements AnInterface2 {
 //    }
 
     public static void main(String... args) throws IOException {
-        System.out.println("print error");
+//        System.out.println("print error");
+
+        Map<String,String> a = new HashMap<>();
+        a.put("1","33");
+        a.put("2","44");
+        Map<String,String> b = new HashMap<>();
+        b.put("3","55");
+        b.put("2","66");
+        a.forEach((k,v) -> b.merge(k,v, (v1,v2) -> v1));
+        System.out.println(b);
 //        FileInputStream inputStream = new FileInputStream("/home/liu/Desktop/chinese.txt");
 //        int count = 0;
 //        int a = inputStream.read();
